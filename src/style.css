@@ -51,10 +51,6 @@ button {
 button:hover {
   border-color: #747bff;
 }
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
 
 .card {
   padding: 2em;
@@ -75,7 +71,7 @@ nav {
   border-radius: 5px;
   margin-bottom: 20px;
   justify-content: space-around;
-  width: 400px;
+  min-width: 400px;
 }
 
 form {
@@ -99,4 +95,21 @@ form label {
 .loading {
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+.router-link-active {
+  font-weight: bold;
+}
+
+.notLoaded {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.el-mention {
+  min-width: 400px;
+}
+
+.el-pagination {
+  margin-top: 20px;
 }

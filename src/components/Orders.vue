@@ -17,7 +17,7 @@
                 Date To:
                 <el-mention type="date" v-model="dateTo" required />
             </label>
-            <button type="submit">Load</button>
+            <button type="submit" :class="loading ? 'notLoaded' : ''">Load</button>
         </form>
         <div class="loading" v-if="loading">
             <el-progress :percentage="100" :indeterminate="true" :show-text="false"/>
@@ -47,6 +47,16 @@
                     :filters="closeFilters"
                     :filter-method="filterUnique"/>
             </el-table>
+            <el-pagination
+                background
+                v-model:page-size="pageSize"
+                :page-sizes="[10, 50, 100, 250, 500]"
+                layout="total, sizes, prev, pager, next"
+                :size="size"
+                :total='totalValue'
+                @size-change="() => { fetchData(1); }"
+                @current-change="(val) => { page = val; fetchData(page); }"
+            />
         </div>
     </div>
 </template>
@@ -66,12 +76,16 @@ const dateFilters = ref([]);
 const articleFilters = ref([]);
 const closeFilters = ref([]);
 
+const totalValue = ref(500);
+const pageSize = ref(10);
+const size = ref('default');
+
 const props = defineProps({
   token: { type: String, required: true },
   baseUrl: { type: String, required: true }
 })
 
-async function fetchData() {
+async function fetchData(page = 1) {
     loading.value = true;
     error.value = '';
     try {
@@ -83,10 +97,11 @@ async function fetchData() {
                 dateFrom: dateFrom.value,
                 dateTo: dateTo.value,
                 key: props.token,
-                limit: 500,
-                page: 1
+                limit: pageSize.value,
+                page: page
             }
         });
+        totalValue.value = response.data.meta.total;
         data.value = response.data;
         if (data.value) {
             getDateFilters();  

@@ -12,7 +12,7 @@
             <label>
                 <el-mention type="date" v-model="dateFrom" readonly />
             </label>
-            <button type="submit">Load</button>
+            <button type="submit" :class="loading ? 'notLoaded' : ''">Load</button>
         </form>
         <div class="loading" v-if="loading">
             <el-progress :percentage="100" :indeterminate="true" :show-text="false"/>
@@ -36,8 +36,18 @@
                         :filter-method="filterUnique"
                         />
                 </el-table>
+                <el-pagination
+                    background
+                    v-model:page-size="pageSize"
+                    :page-sizes="[10, 50, 100, 250, 500]"
+                    layout="total, sizes, prev, pager, next"
+                    :size="size"
+                    :total='totalValue'
+                    @size-change="() => { fetchData(1); }"
+                    @current-change="(val) => { page = val; fetchData(page); }"
+                />
             </div>
-    </div>
+        </div>
 </template>
 
 <script setup>
@@ -56,7 +66,11 @@ const baseUrl = 'https://cors-anywhere.herokuapp.com/http://109.73.206.144:6969/
 const barcodeFilters = ref([]);
 const subjectFilters = ref([]);
 
-async function fetchData() {
+const totalValue = ref(500);
+const pageSize = ref(10);
+const size = ref('default');
+
+async function fetchData(page = 1) {
     loading.value = true;
     error.value = '';
     try {
@@ -64,10 +78,11 @@ async function fetchData() {
             params: {
                 dateFrom: dateFrom,
                 key: token,
-                limit: 500,
-                page: 1
+                limit: pageSize.value,
+                page: page
             }
         });
+        totalValue.value = response.data.meta.total;
         data.value = response.data;
         if (data.value) {
             getBarcodeFilters();  
