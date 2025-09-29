@@ -3,7 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 const components = import.meta.glob('./components/*.vue')
 
 const token = 'E6kUTYrYwZq2tN4QEtyzsbEBk3ie';
-const baseUrl = 'http://109.73.206.144:6969/api/incomes';
+const baseUrl = 'https://109.73.206.144:6969/api/incomes';
 
 const routes = Object.keys(components).map((path) => {
     const name = path
