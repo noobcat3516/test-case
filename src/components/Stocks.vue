@@ -1,13 +1,22 @@
 <template>
     <div>
-        <h1>Stocks</h1>
+        <h2>Stocks</h2>
+        <nav>
+            <RouterLink to="/">Home</RouterLink>
+            <RouterLink to="/incomes">Incomes</RouterLink>
+            <RouterLink to="/sales">Sales</RouterLink>
+            <RouterLink to="/orders">Orders</RouterLink>
+            <RouterLink to="/stocks">Stocks</RouterLink>
+        </nav>
         <form @submit.prevent="fetchData">
             <label>
                 <el-mention type="date" v-model="dateFrom" readonly />
             </label>
             <button type="submit">Load</button>
         </form>
-        <div v-if="loading">Loading...</div>
+        <div class="loading" v-if="loading">
+            <el-progress :percentage="100" :indeterminate="true" :show-text="false"/>
+        </div>
         <div v-if="error" style="color:red">{{ error }}</div>
             <div v-if="data && Array.isArray(data.data)">
                 <el-table :data="data.data" style="width: 100%">

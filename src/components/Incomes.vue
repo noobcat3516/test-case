@@ -1,7 +1,14 @@
 
 <template>
     <div>
-        <h1>Incomes</h1>
+        <h2>Incomes</h2>
+        <nav>
+            <RouterLink to="/">Home</RouterLink>
+            <RouterLink to="/incomes">Incomes</RouterLink>
+            <RouterLink to="/sales">Sales</RouterLink>
+            <RouterLink to="/orders">Orders</RouterLink>
+            <RouterLink to="/stocks">Stocks</RouterLink>
+        </nav>
         <form @submit.prevent="fetchData">
             <label>
                 Date From:
@@ -13,7 +20,9 @@
             </label>
             <button type="submit">Load</button>
         </form>
-        <div v-if="loading">Loading...</div>
+        <div class="loading" v-if="loading">
+            <el-progress :percentage="100" :indeterminate="true" :show-text="false"/>
+        </div>
         <div v-if="error" style="color:red">{{ error }}</div>
         <div v-if="data && Array.isArray(data.data)">
             <el-table :data="data.data" style="width: 100%">
@@ -67,6 +76,9 @@ async function fetchData() {
     loading.value = true;
     error.value = '';
     try {
+        if (dateFrom.value > dateTo.value) {
+            throw new Error('Date from cannot be later than Date To');
+        }
         const response = await axios.get(props.baseUrl + 'incomes', {
             params: {
                 dateFrom: dateFrom.value,
