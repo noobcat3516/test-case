@@ -42,7 +42,7 @@ const loading = ref(false);
 const error = ref('');
 
 const token = 'E6kUTYrYwZq2tN4QEtyzsbEBk3ie';
-const baseUrl = 'http://109.73.206.144:6969/api/stocks';
+const baseUrl = 'https://cors-anywhere.herokuapp.com/http://109.73.206.144:6969/api/stocks';
 
 const barcodeFilters = ref([]);
 const subjectFilters = ref([]);

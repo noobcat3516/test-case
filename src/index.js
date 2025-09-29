@@ -10,7 +10,7 @@ import Sales from './components/Sales.vue'
 import component from 'element-plus/es/components/tree-select/src/tree-select-option.mjs'
 
 const token = 'E6kUTYrYwZq2tN4QEtyzsbEBk3ie';
-const baseUrl = 'http://109.73.206.144:6969/api/';
+const baseUrl = 'https://cors-anywhere.herokuapp.com/http://109.73.206.144:6969/api/';
 
 const routes = [
     {path: '/', name: 'home', component: Home, props: { token, baseUrl }},
