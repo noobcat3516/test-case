@@ -1,4 +1,5 @@
 <template>
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> 
   <nav>
     <RouterLink to="/">Home</RouterLink>
     <RouterLink to="/incomes">Incomes</RouterLink>
