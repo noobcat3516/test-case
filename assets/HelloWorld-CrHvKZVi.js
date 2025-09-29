@@ -1,0 +1,1 @@
+import{_ as o,c as a,a as n,b as r,o as t}from"./index-Di80kDZs.js";const l={};function s(c,e){return t(),a("div",null,[...e[0]||(e[0]=[n("h1",null,"Home",-1),r(" Hello! Made by Shkunov Ivan ",-1)])])}const _=o(l,[["render",s]]);export{_ as default};
