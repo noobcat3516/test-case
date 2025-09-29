@@ -67,7 +67,7 @@ async function fetchData() {
     loading.value = true;
     error.value = '';
     try {
-        const response = await axios.get(props.baseUrl, {
+        const response = await axios.get(props.baseUrl + 'incomes', {
             params: {
                 dateFrom: dateFrom.value,
                 dateTo: dateTo.value,
